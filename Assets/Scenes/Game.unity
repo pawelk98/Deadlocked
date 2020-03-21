@@ -972,7 +972,7 @@ MonoBehaviour:
   characterController: {fileID: 0}
   movementJoystick: {fileID: 118356974}
   shootingJoystick: {fileID: 2070512759}
-  playerSpeed: 5
+  playerSpeed: 10
   bulletOffset: 1
   bulletSpeed: 20
   fireRate: 0.2
@@ -1466,7 +1466,7 @@ PrefabInstance:
     - target: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
       propertyPath: deadZone
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
@@ -1671,7 +1671,7 @@ PrefabInstance:
     - target: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
       propertyPath: deadZone
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2929252285020698103, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
