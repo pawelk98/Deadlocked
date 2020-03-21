@@ -1,0 +1,18 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraMovement : MonoBehaviour
+{
+    public Transform player;
+    public Vector3 offset = Vector3.zero;
+    public float moveSpeed = 5.0f;
+
+    private Vector3 nextPostion = Vector3.zero;
+
+    void Update()
+    {
+        nextPostion = player.position + offset;
+        transform.position = Vector3.Lerp(transform.position, nextPostion, Time.deltaTime * moveSpeed);
+    }
+}
