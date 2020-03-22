@@ -23,7 +23,7 @@ public class PlayerControl : MonoBehaviour
     {
         playerRb = gameObject.GetComponent<Rigidbody>();
     }
-    void Update()
+    void FixedUpdate()
     {
         moveDirection = new Vector3(movementJoystick.Horizontal, 0.0f, movementJoystick.Vertical) * playerSpeed;
         playerRb.velocity = moveDirection;
@@ -34,8 +34,7 @@ public class PlayerControl : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab);
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
-            joystickMagnitude = new Vector2(shootingJoystick.Horizontal, shootingJoystick.Vertical).magnitude;
-            maxJoystickRange = new Vector2(shootingJoystick.Horizontal, shootingJoystick.Vertical) / joystickMagnitude;
+            maxJoystickRange = new Vector2(shootingJoystick.Horizontal, shootingJoystick.Vertical).normalized;
 
             bullet.transform.position = transform.position + new Vector3(maxJoystickRange.x, 0.0f, maxJoystickRange.y) * bulletOffset;
             bulletRb.velocity = (bullet.transform.position - transform.position) * bulletSpeed;

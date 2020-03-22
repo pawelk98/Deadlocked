@@ -9,7 +9,8 @@ public class UnitScript : MonoBehaviour
     private Renderer rend;
     private Color newColor;
 
-    void Start() {
+    void Start()
+    {
         rend = GetComponent<Renderer>();
         newColor = rend.material.color;
         currentHealth = health;
@@ -18,7 +19,7 @@ public class UnitScript : MonoBehaviour
     {
         currentHealth -= damage;
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Destroy(gameObject);
         }
@@ -26,21 +27,21 @@ public class UnitScript : MonoBehaviour
         updateColor(damage);
     }
 
-    private void updateColor(float damage) 
+    private void updateColor(float damage)
     {
-        float colorChange = damage/health;
+        float colorChange = damage / health;
 
         newColor.r += colorChange;
         newColor.g += colorChange;
         newColor.b += colorChange;
 
-        if(newColor.r > 1)
+        if (newColor.r > 1)
             newColor.r = 1;
-        
-        if(newColor.g > 1)
+
+        if (newColor.g > 1)
             newColor.g = 1;
 
-        if(newColor.b > 1)
+        if (newColor.b > 1)
             newColor.b = 1;
 
         rend.material.color = newColor;
