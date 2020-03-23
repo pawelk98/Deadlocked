@@ -5,19 +5,19 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public CharacterController characterController;
     public Joystick movementJoystick;
     public Joystick shootingJoystick;
     public float playerSpeed = 5.0f;
-    public float bulletOffset = 0.5f;
+    public float bulletOffset = 1.0f;
     public float bulletSpeed = 10.0f;
+    public int bulletDamage = 10;
     public float fireRate = 1;
 
     private Rigidbody playerRb;
     private Vector3 moveDirection = Vector3.zero;
     private float lastShot = 0.0f;
     private float joystickMagnitude;
-    private Vector2 maxJoystickRange;
+    private Vector3 maxJoystickRange;
 
     void Start()
     {
@@ -34,10 +34,11 @@ public class PlayerControl : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab);
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
-            maxJoystickRange = new Vector2(shootingJoystick.Horizontal, shootingJoystick.Vertical).normalized;
-
-            bullet.transform.position = transform.position + new Vector3(maxJoystickRange.x, 0.0f, maxJoystickRange.y) * bulletOffset;
-            bulletRb.velocity = (bullet.transform.position - transform.position) * bulletSpeed;
+            bullet.GetComponent<BulletScript>().shooterTag = gameObject.tag;
+            bullet.GetComponent<BulletScript>().damage = bulletDamage;
+            maxJoystickRange = new Vector3(shootingJoystick.Horizontal, 0.0f, shootingJoystick.Vertical).normalized;
+            bullet.transform.position = transform.position + maxJoystickRange * bulletOffset;
+            bulletRb.velocity = maxJoystickRange * bulletSpeed;
         }
     }
 }

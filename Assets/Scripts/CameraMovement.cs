@@ -12,7 +12,10 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-        nextPostion = player.position + offset;
-        transform.position = Vector3.Lerp(transform.position, nextPostion, Time.deltaTime * moveSpeed);
+        if (player != null)
+        {
+            nextPostion = player.position + offset;
+            transform.position = Vector3.Lerp(transform.position, nextPostion, Time.deltaTime * moveSpeed);
+        }
     }
 }

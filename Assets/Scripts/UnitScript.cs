@@ -9,11 +9,16 @@ public class UnitScript : MonoBehaviour
     private Renderer rend;
     private Color newColor;
 
-    void Start()
+    public virtual void Start()
     {
         rend = GetComponent<Renderer>();
         newColor = rend.material.color;
         currentHealth = health;
+    }
+
+    public virtual void Update()
+    {
+        
     }
     public void dealDamage(float damage)
     {
@@ -23,8 +28,10 @@ public class UnitScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        updateColor(damage);
+        else
+        {
+            updateColor(damage);
+        }
     }
 
     private void updateColor(float damage)
