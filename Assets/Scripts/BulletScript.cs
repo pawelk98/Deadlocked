@@ -12,6 +12,7 @@ public class BulletScript : MonoBehaviour
 
     void Start()
     {
+        transform.parent = GameObject.Find("Bullets").transform;
         createdTime = Time.time;
     }
 

@@ -6,29 +6,31 @@ using UnityEngine.AI;
 public class EnemyScript : UnitScript
 {
     public int level = 1;
+    public int damage = 10;
     public float attackRate = 1.0f;
     public GameObject bulletPrefab;
     public float bulletOffset = 1.0f;
-    public int damage = 10;
     public float bulletSpeed = 10.0f;
     public NavMeshAgent agent;
     public float minStoppingDistance = 2.2f;
+
     private GameObject player;
-    private float lastShot = 0.0f;
     private RaycastHit hit;
     private LayerMask layerMask;
+    private float lastShot;
     private float stoppingDistance;
 
 
     public override void Start()
     {
         base.Start();
-        player = GameObject.FindGameObjectsWithTag("Player")[0];
+        player = GameObject.Find("Player");
+        transform.parent = GameObject.Find("Enemies").transform;
+        stoppingDistance = agent.stoppingDistance;
         layerMask = 1 << 8;
         int layerMask2 = 1 << 10;
-        layerMask = layerMask ^ layerMask2;
-        layerMask = ~layerMask;
-        stoppingDistance = agent.stoppingDistance;
+        layerMask = ~(layerMask ^ layerMask2);
+        lastShot = Time.time - lastShot;
     }
     public override void Update()
     {
@@ -58,7 +60,7 @@ public class EnemyScript : UnitScript
                             case 2:
                                 shoot();
                                 break;
-                            
+
                             case 3:
                                 shoot();
                                 break;
@@ -74,6 +76,10 @@ public class EnemyScript : UnitScript
                     agent.stoppingDistance = minStoppingDistance;
                 }
             }
+        }
+        else
+        {
+            agent.isStopped = true;
         }
     }
 
