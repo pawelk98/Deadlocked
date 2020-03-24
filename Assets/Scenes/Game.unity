@@ -1201,10 +1201,8 @@ MonoBehaviour:
   - {fileID: 970824877}
   enemies:
   - {fileID: 3700614611180856539, guid: 49175d66abce8bd41a987f49c5601fa8, type: 3}
-  - {fileID: 1989137323679384450, guid: e330440569ce868418e7852609768e49, type: 3}
   - {fileID: 5383740136336859415, guid: 8ca8fe3021de25142bc8818a203555f9, type: 3}
-  wavesNumber: 10
-  wavesRate: 15
+  - {fileID: 1989137323679384450, guid: e330440569ce868418e7852609768e49, type: 3}
 --- !u!1001 &391115862
 PrefabInstance:
   m_ObjectHideFlags: 0

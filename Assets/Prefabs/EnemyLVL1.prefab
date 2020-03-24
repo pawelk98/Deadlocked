@@ -130,14 +130,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb5a977f71c9574fb9e09141f5674bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 50
   level: 1
-  meleeDamage: 20
-  fireRate: 1
+  damage: 10
+  attackRate: 1
   bulletPrefab: {fileID: 916442753211138663, guid: 83018feaa23be16438362a2676974a39,
     type: 3}
   bulletOffset: 1.5
-  bulletDamage: 10
   bulletSpeed: 10
   agent: {fileID: 3700614611180856541}
   minStoppingDistance: 2.2
