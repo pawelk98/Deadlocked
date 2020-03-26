@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class UnitScript : MonoBehaviour
 {
-    public float health = 100;
-    private float currentHealth;
+    public GameObject bulletPrefab;
+    public int health = 100;
+    public int damage = 10;
+    public float attackRate = 1.0f;
+    public float bulletOffset = 1.0f;
+    public float bulletSpeed = 10.0f;
+
+    [HideInInspector]
+    public float lastShot;
+    [HideInInspector]
+    public int currentHealth;
+
+
     private Renderer rend;
     private Color newColor;
 
@@ -14,19 +25,20 @@ public class UnitScript : MonoBehaviour
         rend = GetComponent<Renderer>();
         newColor = rend.material.color;
         currentHealth = health;
+        lastShot = Time.time - lastShot;
     }
 
     public virtual void Update()
     {
-        
+
     }
-    public void dealDamage(float damage)
+    public void dealDamage(int damage)
     {
         currentHealth -= damage;
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            kill();
         }
         else
         {
@@ -34,9 +46,9 @@ public class UnitScript : MonoBehaviour
         }
     }
 
-    private void updateColor(float damage)
+    private void updateColor(int damage)
     {
-        float colorChange = damage / health;
+        float colorChange = damage / (float)health;
 
         newColor.r += colorChange;
         newColor.g += colorChange;
@@ -52,5 +64,10 @@ public class UnitScript : MonoBehaviour
             newColor.b = 1;
 
         rend.material.color = newColor;
+    }
+
+    public virtual void kill()
+    {
+        Destroy(gameObject);
     }
 }

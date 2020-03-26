@@ -5,19 +5,13 @@ using UnityEngine.AI;
 
 public class EnemyScript : UnitScript
 {
-    public int level = 1;
-    public int damage = 10;
-    public float attackRate = 1.0f;
-    public GameObject bulletPrefab;
-    public float bulletOffset = 1.0f;
-    public float bulletSpeed = 10.0f;
+    public int type = 1;
     public NavMeshAgent agent;
     public float minStoppingDistance = 2.2f;
 
     private GameObject player;
     private RaycastHit hit;
     private LayerMask layerMask;
-    private float lastShot;
     private float stoppingDistance;
 
 
@@ -27,15 +21,30 @@ public class EnemyScript : UnitScript
         player = GameObject.Find("Player");
         transform.parent = GameObject.Find("Enemies").transform;
         stoppingDistance = agent.stoppingDistance;
-        layerMask = 1 << 8;
-        int layerMask2 = 1 << 10;
-        layerMask = ~(layerMask ^ layerMask2);
-        lastShot = Time.time - lastShot;
+        layerMask = ~((1 << 8) ^ (1 << 10));
     }
     public override void Update()
     {
         base.Update();
+        agentControl();
+    }
 
+    void shoot()
+    {
+        GameObject bullet = Instantiate(bulletPrefab);
+        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+
+        bullet.GetComponent<BulletScript>().shooterTag = gameObject.tag;
+        bullet.GetComponent<BulletScript>().damage = damage;
+        Vector3 direction = (player.transform.position - transform.position).normalized;
+        bullet.transform.position = transform.position + direction * bulletOffset;
+        bulletRb.velocity = direction * bulletSpeed;
+
+        lastShot = Time.time;
+    }
+
+    void agentControl()
+    {
         if (player != null)
         {
             agent.SetDestination(player.transform.position);
@@ -50,23 +59,23 @@ public class EnemyScript : UnitScript
 
                     if (Time.time - lastShot > attackRate)
                     {
-                        lastShot = Time.time;
-                        switch (level)
+                        switch (type)
                         {
+                            case 0:
+                                player.GetComponent<UnitScript>().dealDamage(base.damage);
+                                lastShot = Time.time;
+                                break;
+
                             case 1:
-                                player.GetComponent<UnitScript>().dealDamage(damage);
+                                shoot();
                                 break;
 
                             case 2:
                                 shoot();
                                 break;
 
-                            case 3:
-                                shoot();
-                                break;
-
                             default:
-                                player.GetComponent<UnitScript>().dealDamage(damage);
+                                player.GetComponent<UnitScript>().dealDamage(base.damage);
                                 break;
                         }
                     }
@@ -81,17 +90,5 @@ public class EnemyScript : UnitScript
         {
             agent.isStopped = true;
         }
-    }
-
-    void shoot()
-    {
-        GameObject bullet = Instantiate(bulletPrefab);
-        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-
-        bullet.GetComponent<BulletScript>().shooterTag = gameObject.tag;
-        bullet.GetComponent<BulletScript>().damage = damage;
-        Vector3 direction = (player.transform.position - transform.position).normalized;
-        bullet.transform.position = transform.position + direction * bulletOffset;
-        bulletRb.velocity = direction * bulletSpeed;
     }
 }

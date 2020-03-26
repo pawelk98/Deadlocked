@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
     public Transform[] spawns;
     public GameObject[] enemies;
+    public Text timeCounter;
 
     private int[][] wavesTab;
     private int wavesNumber;
@@ -35,6 +37,8 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
+        timeCounter.text = ((int)(startTime + wavesTab[actualWave][0] - Time.time)).ToString();
+
         if (actualWave < wavesNumber && Time.time > startTime + wavesTab[actualWave][0])
         {
             spawnWave(actualWave);
