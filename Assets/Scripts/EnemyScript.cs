@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyScript : UnitScript
 {
+    public int scoreValue = 10;
     public NavMeshAgent agent;
     public float minStoppingDistance = 2.2f;
 
+    private GameObject enemies;
     private GameObject player;
     private RaycastHit hit;
     private LayerMask layerMask;
@@ -18,7 +19,8 @@ public class EnemyScript : UnitScript
     {
         base.Start();
         player = GameObject.Find("Player");
-        transform.parent = GameObject.Find("Enemies").transform;
+        enemies = GameObject.Find("Enemies");
+        transform.parent = enemies.transform;
         stoppingDistance = agent.stoppingDistance;
         layerMask = ~((1 << 8) ^ (1 << 10));
     }
@@ -26,6 +28,13 @@ public class EnemyScript : UnitScript
     {
         base.Update();
         agentControl();
+    }
+
+    protected override void kill()
+    {
+        base.kill();
+        enemySpawner.enemiesCounter -= 1;
+        enemySpawner.score += scoreValue;
     }
 
     void agentControl()
@@ -42,7 +51,7 @@ public class EnemyScript : UnitScript
                     agent.stoppingDistance = stoppingDistance;
                     agent.velocity = Vector3.zero;
 
-                    if (Time.time - lastShot > weapons[weapon][1])
+                    if (Time.time - lastShot > enemySpawner.weapons[weapon][1])
                     {
                         shoot((player.transform.position - transform.position).normalized);
                     }

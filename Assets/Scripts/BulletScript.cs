@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
@@ -33,6 +31,10 @@ public class BulletScript : MonoBehaviour
                 Destroy(gameObject);
                 other.GetComponent<UnitScript>().dealDamage(damage);
             }
+        }
+        else if(!other.gameObject.tag.Equals("Bullet"))
+        {
+            Destroy(gameObject);
         }
     }
 }

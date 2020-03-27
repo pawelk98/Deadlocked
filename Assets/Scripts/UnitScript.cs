@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class UnitScript : MonoBehaviour
 {
@@ -12,9 +10,10 @@ public class UnitScript : MonoBehaviour
 
     protected float lastShot;
     protected float currentHealth;
-    protected float[][] weapons;
+    protected GameControl enemySpawner;
     private Renderer rend;
     private Color newColor;
+    private bool isDead = false;
 
     protected virtual void Start()
     {
@@ -22,14 +21,8 @@ public class UnitScript : MonoBehaviour
         newColor = rend.material.color;
         currentHealth = health;
         lastShot = Time.time - lastShot;
+        enemySpawner = GameObject.Find("Enemies").GetComponent<GameControl>();
 
-        weapons = new float[3][];
-
-        //damage, attack rate, bullet speed
-        weapons[0] = new float[] { 5.0f, 0.1f, 0.0f };    //melee
-        weapons[1] = new float[] { 10.0f, 0.5f, 30.0f };  //pistol
-        weapons[2] = new float[] { 20.0f, 0.7f, 20.0f };  //shotgun
-        //---------------------------------
     }
 
     protected virtual void Update()
@@ -39,15 +32,19 @@ public class UnitScript : MonoBehaviour
 
     public void dealDamage(float damage)
     {
-        currentHealth -= damage;
+        if (!isDead)
+        {
+            currentHealth -= damage;
 
-        if (currentHealth <= 0)
-        {
-            kill();
-        }
-        else
-        {
-            updateColor(damage);
+            if (currentHealth <= 0)
+            {
+                isDead = true;
+                kill();
+            }
+            else
+            {
+                updateColor(damage);
+            }
         }
     }
 
@@ -103,9 +100,10 @@ public class UnitScript : MonoBehaviour
         BulletScript bulletSc = bullet.GetComponent<BulletScript>();
 
         bulletSc.shooterTag = gameObject.tag;
-        bulletSc.damage = weapons[weapon][0];
+        bulletSc.damage = enemySpawner.weapons[weapon][0];
+        bulletSc.lifeLength = enemySpawner.weapons[weapon][3];
 
         bullet.transform.position = transform.position + direction * bulletOffset;
-        bulletRb.velocity = direction * weapons[weapon][2];
+        bulletRb.velocity = direction * enemySpawner.weapons[weapon][2];
     }
 }

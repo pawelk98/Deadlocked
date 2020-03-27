@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerScript : UnitScript
@@ -11,12 +10,17 @@ public class PlayerScript : UnitScript
     public Joystick movementJoystick;
     public Joystick shootingJoystick;
     public Rigidbody playerRb;
+    public GameObject deathScene;
+    public GameObject gameScene;
 
 
     protected override void Update()
     {
         base.Update();
-        hpText.text = "HP " + base.currentHealth.ToString();
+        hpText.text = currentHealth.ToString();
+
+        gameScene.SetActive(true);
+        deathScene.SetActive(false);
 
         move();
         attack();
@@ -24,8 +28,11 @@ public class PlayerScript : UnitScript
 
     protected override void kill()
     {
-        hpText.text = "HP  0";
+        hpText.text = "0";
         base.kill();
+        
+        gameScene.SetActive(false);
+        deathScene.SetActive(true);
     }
 
     void move()
@@ -36,7 +43,7 @@ public class PlayerScript : UnitScript
 
     void attack()
     {
-        if ((shootingJoystick.Horizontal != 0 || shootingJoystick.Vertical != 0) && Time.time - lastShot > weapons[weapon][1])
+        if ((shootingJoystick.Horizontal != 0 || shootingJoystick.Vertical != 0) && Time.time - lastShot > enemySpawner.weapons[weapon][1])
         {
             Vector3 direction = new Vector3(shootingJoystick.Horizontal, 0.0f, shootingJoystick.Vertical).normalized;
             shoot(direction);
