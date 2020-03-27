@@ -4176,7 +4176,6 @@ GameObject:
   - component: {fileID: 1190704979}
   - component: {fileID: 1190704978}
   - component: {fileID: 1190704977}
-  - component: {fileID: 1190704976}
   - component: {fileID: 1190704975}
   m_Layer: 9
   m_Name: Player
@@ -4200,32 +4199,13 @@ MonoBehaviour:
   bulletPrefab: {fileID: 916442753211138663, guid: 83018feaa23be16438362a2676974a39,
     type: 3}
   health: 1000
-  damage: 10
-  attackRate: 0.2
+  weapon: 2
   bulletOffset: 1
-  bulletSpeed: 30
-  lastShot: 0
-  currentHealth: 0
+  speed: 10
   hpText: {fileID: 954230219}
---- !u!114 &1190704976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1190704974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c42e6ab0eb0c0bd47bd1997cc889997e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerScript: {fileID: 1190704975}
-  playerRb: {fileID: 1190704977}
-  bulletPrefab: {fileID: 916442753211138663, guid: 83018feaa23be16438362a2676974a39,
-    type: 3}
   movementJoystick: {fileID: 542225034}
   shootingJoystick: {fileID: 1380892754}
-  playerSpeed: 10
+  playerRb: {fileID: 1190704977}
 --- !u!54 &1190704977
 Rigidbody:
   m_ObjectHideFlags: 0
