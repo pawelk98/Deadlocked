@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class EnemyScript : UnitScript
 {
-    public int type = 1;
     public NavMeshAgent agent;
     public float minStoppingDistance = 2.2f;
 
@@ -15,7 +14,7 @@ public class EnemyScript : UnitScript
     private float stoppingDistance;
 
 
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
         player = GameObject.Find("Player");
@@ -23,24 +22,10 @@ public class EnemyScript : UnitScript
         stoppingDistance = agent.stoppingDistance;
         layerMask = ~((1 << 8) ^ (1 << 10));
     }
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
         agentControl();
-    }
-
-    void shoot()
-    {
-        GameObject bullet = Instantiate(bulletPrefab);
-        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-
-        bullet.GetComponent<BulletScript>().shooterTag = gameObject.tag;
-        bullet.GetComponent<BulletScript>().damage = damage;
-        Vector3 direction = (player.transform.position - transform.position).normalized;
-        bullet.transform.position = transform.position + direction * bulletOffset;
-        bulletRb.velocity = direction * bulletSpeed;
-
-        lastShot = Time.time;
     }
 
     void agentControl()
@@ -57,27 +42,9 @@ public class EnemyScript : UnitScript
                     agent.stoppingDistance = stoppingDistance;
                     agent.velocity = Vector3.zero;
 
-                    if (Time.time - lastShot > attackRate)
+                    if (Time.time - lastShot > weapons[weapon][1])
                     {
-                        switch (type)
-                        {
-                            case 0:
-                                player.GetComponent<UnitScript>().dealDamage(base.damage);
-                                lastShot = Time.time;
-                                break;
-
-                            case 1:
-                                shoot();
-                                break;
-
-                            case 2:
-                                shoot();
-                                break;
-
-                            default:
-                                player.GetComponent<UnitScript>().dealDamage(base.damage);
-                                break;
-                        }
+                        shoot((player.transform.position - transform.position).normalized);
                     }
                 }
                 else

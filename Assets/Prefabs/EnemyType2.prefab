@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1989137323679384452}
   - component: {fileID: 1989137323679384453}
   m_Layer: 8
-  m_Name: EnemyLVL3
+  m_Name: EnemyType2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,13 +130,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb5a977f71c9574fb9e09141f5674bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  level: 3
-  damage: 50
-  attackRate: 1
   bulletPrefab: {fileID: 916442753211138663, guid: 83018feaa23be16438362a2676974a39,
     type: 3}
+  health: 100
+  weapon: 2
   bulletOffset: 1.5
-  bulletSpeed: 50
+  lastShot: 0
+  currentHealth: 0
   agent: {fileID: 1989137323679384452}
   minStoppingDistance: 2.2

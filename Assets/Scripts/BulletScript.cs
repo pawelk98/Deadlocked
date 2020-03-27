@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public int damage = 10;
+    public float damage = 10;
     public float lifeLength = 3.0f;
     public string shooterTag;
 
@@ -33,10 +33,6 @@ public class BulletScript : MonoBehaviour
                 Destroy(gameObject);
                 other.GetComponent<UnitScript>().dealDamage(damage);
             }
-        }
-        else if (!other.gameObject.tag.Equals("Bullet"))
-        {
-            Destroy(gameObject);
         }
     }
 }

@@ -5,34 +5,39 @@ using UnityEngine;
 public class UnitScript : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public int health = 100;
-    public int damage = 10;
-    public float attackRate = 1.0f;
+    public float health = 100;
+    public int weapon = 1;
     public float bulletOffset = 1.0f;
-    public float bulletSpeed = 10.0f;
-
-    [HideInInspector]
-    public float lastShot;
-    [HideInInspector]
-    public int currentHealth;
 
 
+    protected float lastShot;
+    protected float currentHealth;
+    protected float[][] weapons;
     private Renderer rend;
     private Color newColor;
 
-    public virtual void Start()
+    protected virtual void Start()
     {
         rend = GetComponent<Renderer>();
         newColor = rend.material.color;
         currentHealth = health;
         lastShot = Time.time - lastShot;
+
+        weapons = new float[3][];
+
+        //damage, attack rate, bullet speed
+        weapons[0] = new float[] { 5.0f, 0.1f, 0.0f };    //melee
+        weapons[1] = new float[] { 10.0f, 0.5f, 30.0f };  //pistol
+        weapons[2] = new float[] { 20.0f, 0.7f, 20.0f };  //shotgun
+        //---------------------------------
     }
 
-    public virtual void Update()
+    protected virtual void Update()
     {
 
     }
-    public void dealDamage(int damage)
+
+    public void dealDamage(float damage)
     {
         currentHealth -= damage;
 
@@ -46,9 +51,9 @@ public class UnitScript : MonoBehaviour
         }
     }
 
-    private void updateColor(int damage)
+    private void updateColor(float damage)
     {
-        float colorChange = damage / (float)health;
+        float colorChange = damage / health;
 
         newColor.r += colorChange;
         newColor.g += colorChange;
@@ -66,8 +71,41 @@ public class UnitScript : MonoBehaviour
         rend.material.color = newColor;
     }
 
-    public virtual void kill()
+    protected virtual void kill()
     {
         Destroy(gameObject);
+    }
+
+    protected void shoot(Vector3 direction)
+    {
+        switch (weapon)
+        {
+            case 2:
+                singleShoot(direction);
+                singleShoot(Quaternion.AngleAxis(-15, Vector3.up) * direction);
+                singleShoot(Quaternion.AngleAxis(-7.5f, Vector3.up) * direction);
+                singleShoot(Quaternion.AngleAxis(7.5f, Vector3.up) * direction);
+                singleShoot(Quaternion.AngleAxis(15, Vector3.up) * direction);
+                break;
+
+            default:
+                singleShoot(direction);
+                break;
+        }
+
+        lastShot = Time.time;
+    }
+
+    private void singleShoot(Vector3 direction)
+    {
+        GameObject bullet = Instantiate(bulletPrefab);
+        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+        BulletScript bulletSc = bullet.GetComponent<BulletScript>();
+
+        bulletSc.shooterTag = gameObject.tag;
+        bulletSc.damage = weapons[weapon][0];
+
+        bullet.transform.position = transform.position + direction * bulletOffset;
+        bulletRb.velocity = direction * weapons[weapon][2];
     }
 }
