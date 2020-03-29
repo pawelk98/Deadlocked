@@ -2,6 +2,7 @@
 
 public class UnitScript : MonoBehaviour
 {
+    public UIController uIController;
     public GameObject bulletPrefab;
     public float health = 100;
     public int weapon = 1;
@@ -10,7 +11,7 @@ public class UnitScript : MonoBehaviour
 
     protected float lastShot;
     protected float currentHealth;
-    protected GameControl enemySpawner;
+    protected Weapons weapons;
     private Renderer rend;
     private Color newColor;
     private bool isDead = false;
@@ -21,7 +22,8 @@ public class UnitScript : MonoBehaviour
         newColor = rend.material.color;
         currentHealth = health;
         lastShot = Time.time - lastShot;
-        enemySpawner = GameObject.Find("Enemies").GetComponent<GameControl>();
+        weapons = GameObject.Find("GameController").GetComponent<Weapons>();
+        uIController = GameObject.Find("GameController").GetComponent<UIController>();
 
     }
 
@@ -100,10 +102,10 @@ public class UnitScript : MonoBehaviour
         BulletScript bulletSc = bullet.GetComponent<BulletScript>();
 
         bulletSc.shooterTag = gameObject.tag;
-        bulletSc.damage = enemySpawner.weapons[weapon][0];
-        bulletSc.lifeLength = enemySpawner.weapons[weapon][3];
+        bulletSc.damage = weapons.getDamage(weapon);
+        bulletSc.lifeLength = weapons.getLifeLength(weapon);
 
         bullet.transform.position = transform.position + direction * bulletOffset;
-        bulletRb.velocity = direction * enemySpawner.weapons[weapon][2];
+        bulletRb.velocity = direction * weapons.getBulletSpeed(weapon);
     }
 }

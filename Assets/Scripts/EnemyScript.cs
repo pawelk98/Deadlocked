@@ -33,8 +33,8 @@ public class EnemyScript : UnitScript
     protected override void kill()
     {
         base.kill();
-        enemySpawner.enemiesCounter -= 1;
-        enemySpawner.score += scoreValue;
+        uIController.EnemiesNumber -= 1;
+        uIController.Score += scoreValue;
     }
 
     void agentControl()
@@ -51,7 +51,7 @@ public class EnemyScript : UnitScript
                     agent.stoppingDistance = stoppingDistance;
                     agent.velocity = Vector3.zero;
 
-                    if (Time.time - lastShot > enemySpawner.weapons[weapon][1])
+                    if (Time.time - lastShot > weapons.getAttackRate(weapon))
                     {
                         shoot((player.transform.position - transform.position).normalized);
                     }
