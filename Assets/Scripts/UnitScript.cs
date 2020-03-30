@@ -8,10 +8,9 @@ public class UnitScript : MonoBehaviour
     public int weapon = 1;
     public float bulletOffset = 1.0f;
 
-
     protected float lastShot;
     protected float currentHealth;
-    protected Weapons weapons;
+    protected Weapons weaponsScript;
     private Renderer rend;
     private Color newColor;
     private bool isDead = false;
@@ -22,7 +21,7 @@ public class UnitScript : MonoBehaviour
         newColor = rend.material.color;
         currentHealth = health;
         lastShot = Time.time - lastShot;
-        weapons = GameObject.Find("GameController").GetComponent<Weapons>();
+        weaponsScript = GameObject.Find("GameController").GetComponent<Weapons>();
         uIController = GameObject.Find("GameController").GetComponent<UIController>();
 
     }
@@ -75,11 +74,11 @@ public class UnitScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-    protected void shoot(Vector3 direction)
+    protected virtual void shoot(Vector3 direction)
     {
         switch (weapon)
         {
-            case 2:
+            case 3:
                 singleShoot(direction);
                 singleShoot(Quaternion.AngleAxis(-15, Vector3.up) * direction);
                 singleShoot(Quaternion.AngleAxis(-7.5f, Vector3.up) * direction);
@@ -102,10 +101,10 @@ public class UnitScript : MonoBehaviour
         BulletScript bulletSc = bullet.GetComponent<BulletScript>();
 
         bulletSc.shooterTag = gameObject.tag;
-        bulletSc.damage = weapons.getDamage(weapon);
-        bulletSc.lifeLength = weapons.getLifeLength(weapon);
+        bulletSc.damage = weaponsScript.getDamage(weapon);
+        bulletSc.lifeLength = weaponsScript.getLifeLength(weapon);
 
         bullet.transform.position = transform.position + direction * bulletOffset;
-        bulletRb.velocity = direction * weapons.getBulletSpeed(weapon);
+        bulletRb.velocity = direction * weaponsScript.getBulletSpeed(weapon);
     }
 }

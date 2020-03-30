@@ -16,19 +16,20 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         startTime = Time.time;
-
-        //czas spawnu, ilosci przeciwnikow
+        
         wavesData = new int[10][];
+
+        //opóźnienie po poprzedniej fali, ilosci przeciwnikow
         wavesData[0] = new int[] { 0, 4, 0, 0 };
         wavesData[1] = new int[] { 15, 4, 4, 0 };
-        wavesData[2] = new int[] { 40, 8, 4, 2 };
-        wavesData[3] = new int[] { 120, 4, 10, 2 };
-        wavesData[4] = new int[] { 180, 10, 0, 8 };
-        wavesData[5] = new int[] { 300, 6, 10, 10 };
-        wavesData[6] = new int[] { 400, 0, 20, 0 };
-        wavesData[7] = new int[] { 500, 10, 10, 10 };
-        wavesData[8] = new int[] { 600, 15, 5, 20 };
-        wavesData[9] = new int[] { 700, 20, 20, 20 };
+        wavesData[2] = new int[] { 20, 8, 4, 2 };
+        wavesData[3] = new int[] { 25, 4, 10, 2 };
+        wavesData[4] = new int[] { 30, 10, 0, 8 };
+        wavesData[5] = new int[] { 35, 6, 10, 10 };
+        wavesData[6] = new int[] { 40, 0, 20, 0 };
+        wavesData[7] = new int[] { 45, 10, 10, 10 };
+        wavesData[8] = new int[] { 50, 15, 5, 20 };
+        wavesData[9] = new int[] { 55, 20, 20, 20 };
         //----------------------------------------
     }
 

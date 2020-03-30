@@ -51,7 +51,7 @@ public class EnemyScript : UnitScript
                     agent.stoppingDistance = stoppingDistance;
                     agent.velocity = Vector3.zero;
 
-                    if (Time.time - lastShot > weapons.getAttackRate(weapon))
+                    if (Time.time - lastShot > weaponsScript.getAttackRate(weapon))
                     {
                         shoot((player.transform.position - transform.position).normalized);
                     }
