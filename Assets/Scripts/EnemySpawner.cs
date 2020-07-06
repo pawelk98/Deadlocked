@@ -30,7 +30,6 @@ public class EnemySpawner : MonoBehaviour
         wavesData[7] = new int[] { 45, 10, 10, 10 };
         wavesData[8] = new int[] { 50, 15, 5, 20 };
         wavesData[9] = new int[] { 55, 20, 20, 20 };
-        //----------------------------------------
     }
 
     void Update()

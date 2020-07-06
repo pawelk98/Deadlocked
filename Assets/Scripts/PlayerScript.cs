@@ -3,28 +3,31 @@
 
 public class PlayerScript : UnitScript
 {
-    public float speed = 5.0f;
     public Joystick movementJoystick;
     public Joystick shootingJoystick;
     public Rigidbody playerRb;
     public GameObject deathScene;
     public GameObject gameScene;
 
-    int[] ammo;
+    public float speed = 5.0f;
+
+    private int[] ammo;
 
     protected override void Start()
     {
         base.Start();
-        ammo = new int[weaponsScript.NumberOfWeapons];
 
+        ammo = new int[weaponsScript.NumberOfWeapons];
         ammo[1] = -1;
         ammo[2] = 50;
         ammo[3] = 50;
         ammo[4] = 50;
 
-
         uIController.Ammo = ammo[weapon];
         uIController.Weapon = weapon;
+
+        gameScene.SetActive(true);
+        deathScene.SetActive(false);
     }
 
     protected override void Update()
@@ -32,11 +35,17 @@ public class PlayerScript : UnitScript
         base.Update();
         uIController.Health = currentHealth;
 
-        gameScene.SetActive(true);
-        deathScene.SetActive(false);
-
         move();
         attack();
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.tag.Equals("Ammo")) {
+            ammo[other.GetComponent<AmmoScript>().weapon] += other.GetComponent<AmmoScript>().amount;
+            Destroy(other.gameObject);
+
+            uIController.Ammo = ammo[weapon];
+        }
     }
 
     protected override void kill()
@@ -82,14 +91,17 @@ public class PlayerScript : UnitScript
 
     public void switchWeapon()
     {
-        weapon = (weapon + 1) % weaponsScript.NumberOfWeapons;
-
-        while (ammo[weapon] == 0)
+        do 
         {
             weapon = (weapon + 1) % weaponsScript.NumberOfWeapons;
-        }
+        } while (ammo[weapon] == 0);
 
         uIController.Ammo = ammo[weapon];
         uIController.Weapon = weapon;
+    }
+
+    public void pickUpAmmo(int weaponId, int amount)
+    {
+        ammo[weaponId] += amount;
     }
 }

@@ -130,11 +130,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb5a977f71c9574fb9e09141f5674bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uIController: {fileID: 0}
   bulletPrefab: {fileID: 916442753211138663, guid: 83018feaa23be16438362a2676974a39,
     type: 3}
   health: 6
   weapon: 0
   bulletOffset: 1.5
-  scoreValue: 1
   agent: {fileID: 3700614611180856541}
+  ammo: {fileID: 8866274222705634820, guid: 915898fc7a0ef734eaab0517a7d784ca, type: 3}
+  scoreValue: 1
   minStoppingDistance: 2.2
+  dropChance: 50
+  dropAmount: 50
+  dropWeapon: 2

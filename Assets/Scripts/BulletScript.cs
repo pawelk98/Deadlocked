@@ -32,7 +32,7 @@ public class BulletScript : MonoBehaviour
                 other.GetComponent<UnitScript>().dealDamage(damage);
             }
         }
-        else if(!other.gameObject.tag.Equals("Bullet"))
+        else if(!other.gameObject.tag.Equals("Bullet") && !other.gameObject.tag.Equals("Ammo"))
         {
             Destroy(gameObject);
         }
