@@ -11,7 +11,9 @@ public class PlayerScript : UnitScript
 
     public float speed = 5.0f;
 
+    private bool isGrounded;
     private int[] ammo;
+    
 
     protected override void Start()
     {
@@ -34,17 +36,36 @@ public class PlayerScript : UnitScript
     {
         base.Update();
         uIController.Health = currentHealth;
+    }
 
+    protected override void FixedUpdate() 
+    {
         move();
         attack();
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if(other.tag.Equals("Ammo")) {
+    private void OnTriggerEnter(Collider other) 
+    {
+        if(other.tag.Equals("Ammo")) 
+        {
             ammo[other.GetComponent<AmmoScript>().weapon] += other.GetComponent<AmmoScript>().amount;
             Destroy(other.gameObject);
 
             uIController.Ammo = ammo[weapon];
+        }
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        if(other.gameObject.tag.Equals("Floor"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision other) {
+        if(other.gameObject.tag.Equals("Floor"))
+        {
+            isGrounded = false;
         }
     }
 
@@ -59,7 +80,15 @@ public class PlayerScript : UnitScript
 
     void move()
     {
-        Vector3 moveDirection = new Vector3(movementJoystick.Horizontal, 0.0f, movementJoystick.Vertical) * speed;
+        Vector3 moveDirection = new Vector3(movementJoystick.Horizontal * Time.deltaTime * speed,
+                                            playerRb.velocity.y, 
+                                            movementJoystick.Vertical * Time.deltaTime * speed);
+
+        if(!isGrounded && moveDirection.y > 0) 
+        {
+            moveDirection.y = 0;
+        }
+
         playerRb.velocity = moveDirection;
     }
 

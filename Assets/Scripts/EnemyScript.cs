@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyScript : UnitScript
@@ -58,7 +58,10 @@ public class EnemyScript : UnitScript
 
             if (agent.remainingDistance <= stoppingDistance)
             {
-                if (Physics.Raycast(transform.position, player.transform.position - transform.position, out hit, Mathf.Infinity, layerMask)
+                Vector3 rayDirection = player.transform.position - transform.position;
+                rayDirection.y = 0;
+
+                if (Physics.Raycast(transform.position, rayDirection, out hit, Mathf.Infinity, layerMask)
                     && hit.collider.tag.Equals("Player"))
                 {
                     agent.stoppingDistance = stoppingDistance;

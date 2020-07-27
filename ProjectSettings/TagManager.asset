@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Spawn
   - Ammo
+  - Floor
   layers:
   - Default
   - TransparentFX

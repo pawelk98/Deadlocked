@@ -33,6 +33,11 @@ public class UnitScript : MonoBehaviour
 
     }
 
+    protected virtual void FixedUpdate() 
+    {
+        
+    }
+
     public void dealDamage(float damage)
     {
         if (!isDead)
@@ -111,8 +116,7 @@ public class UnitScript : MonoBehaviour
         bullet.transform.position = transform.position + direction * bulletOffset;
 
         float angle = Vector3.SignedAngle(Vector3.forward, direction, Vector3.up);
-        Debug.Log(angle);
-
+        
         bullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
         bulletRb.velocity = direction * weaponsScript.getBulletSpeed(weapon);
     }
