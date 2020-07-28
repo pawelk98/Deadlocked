@@ -8,7 +8,7 @@ public class CameraMovement : MonoBehaviour
 
     private Vector3 nextPostion = Vector3.zero;
 
-    void Update()
+    void LateUpdate()
     {
         if (player != null)
         {

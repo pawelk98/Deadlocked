@@ -8,11 +8,14 @@ public class PlayerScript : UnitScript
     public Rigidbody playerRb;
     public GameObject deathScene;
     public GameObject gameScene;
+    public Animator animator;
 
     public float speed = 5.0f;
 
     private bool isGrounded;
     private int[] ammo;
+    private Vector2 moveAxis;
+    private Vector2 shootAxis;
     
 
     protected override void Start()
@@ -36,10 +39,13 @@ public class PlayerScript : UnitScript
     {
         base.Update();
         uIController.Health = currentHealth;
+        moveAxis = new Vector2(movementJoystick.Horizontal, movementJoystick.Vertical);
+        shootAxis = new Vector2(shootingJoystick.Horizontal, shootingJoystick.Vertical);
     }
 
     protected override void FixedUpdate() 
     {
+        base.FixedUpdate();
         move();
         attack();
     }
@@ -80,9 +86,10 @@ public class PlayerScript : UnitScript
 
     void move()
     {
-        Vector3 moveDirection = new Vector3(movementJoystick.Horizontal * Time.deltaTime * speed,
+
+        Vector3 moveDirection = new Vector3(moveAxis.x * Time.deltaTime * speed,
                                             playerRb.velocity.y, 
-                                            movementJoystick.Vertical * Time.deltaTime * speed);
+                                            moveAxis.y * Time.deltaTime * speed);
 
         if(!isGrounded && moveDirection.y > 0) 
         {
@@ -90,14 +97,27 @@ public class PlayerScript : UnitScript
         }
 
         playerRb.velocity = moveDirection;
+        animator.SetFloat("isRunning", moveAxis.magnitude);
+
+        if(shootAxis.magnitude > 0)
+        {
+            playerRb.rotation = Quaternion.FromToRotation(Vector3.forward, new Vector3(shootAxis.x, 0, shootAxis.y));
+        }
+        else if(moveAxis.magnitude > 0)
+        {
+            playerRb.rotation = Quaternion.FromToRotation(Vector3.forward, new Vector3(moveAxis.x, 0, moveAxis.y));
+        }
     }
 
     void attack()
     {
-        if ((shootingJoystick.Horizontal != 0 || shootingJoystick.Vertical != 0) && Time.time - lastShot > weaponsScript.getAttackRate(weapon))
+        if(shootAxis.magnitude > 0)
         {
-            Vector3 direction = new Vector3(shootingJoystick.Horizontal, 0.0f, shootingJoystick.Vertical).normalized;
-            shoot(direction);
+            if(Time.time - lastShot > weaponsScript.getAttackRate(weapon))
+            {
+                Vector3 direction = new Vector3(shootingJoystick.Horizontal, 0.0f, shootingJoystick.Vertical).normalized;
+                shoot(direction);
+            }
         }
     }
 

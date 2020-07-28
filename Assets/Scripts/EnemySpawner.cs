@@ -36,7 +36,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (nextWave < wavesData.Length && uIController.Timer <= 0)
         {
-            spawnWave(nextWave++);
+            //spawnWave(nextWave++);
             uIController.Timer = wavesData[nextWave][0];
         }
     }

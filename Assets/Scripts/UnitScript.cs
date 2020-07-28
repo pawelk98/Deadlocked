@@ -9,10 +9,10 @@ public class UnitScript : MonoBehaviour
     public float health = 100;
     public int weapon = 1;
     public float bulletOffset = 1.0f;
+    public float bulletOffsetY = 1.0f;
 
     protected float lastShot;
     protected float currentHealth;
-    private Renderer rend;
     private Color newColor;
     private bool isDead = false;
 
@@ -20,12 +20,9 @@ public class UnitScript : MonoBehaviour
     {
         uIController = GameObject.Find("GameController").GetComponent<UIController>();
         weaponsScript = GameObject.Find("GameController").GetComponent<Weapons>();
-        rend = GetComponent<Renderer>();
 
         currentHealth = health;
         lastShot = Time.time - lastShot;
-        newColor = rend.material.color;
-
     }
 
     protected virtual void Update()
@@ -49,31 +46,7 @@ public class UnitScript : MonoBehaviour
                 isDead = true;
                 kill();
             }
-            else
-            {
-                updateColor(damage);
-            }
         }
-    }
-
-    private void updateColor(float damage)
-    {
-        float colorChange = damage / health;
-
-        newColor.r += colorChange;
-        newColor.g += colorChange;
-        newColor.b += colorChange;
-
-        if (newColor.r > 1)
-            newColor.r = 1;
-
-        if (newColor.g > 1)
-            newColor.g = 1;
-
-        if (newColor.b > 1)
-            newColor.b = 1;
-
-        rend.material.color = newColor;
     }
 
     protected virtual void kill()
@@ -113,7 +86,7 @@ public class UnitScript : MonoBehaviour
         bulletSc.damage = weaponsScript.getDamage(weapon);
         bulletSc.lifeLength = weaponsScript.getLifeLength(weapon);
 
-        bullet.transform.position = transform.position + direction * bulletOffset;
+        bullet.transform.position = transform.position + direction * bulletOffset + new Vector3(0, bulletOffsetY, 0);
 
         float angle = Vector3.SignedAngle(Vector3.forward, direction, Vector3.up);
         
