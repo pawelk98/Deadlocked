@@ -56,8 +56,8 @@ public class EnemyScript : UnitScript
         {
             agent.SetDestination(player.transform.position);
 
-            if (agent.remainingDistance <= stoppingDistance)
-            {
+            if (agent.hasPath && agent.remainingDistance <= stoppingDistance)
+            {                
                 Vector3 rayDirection = player.transform.position - transform.position;
                 rayDirection.y = 0;
 

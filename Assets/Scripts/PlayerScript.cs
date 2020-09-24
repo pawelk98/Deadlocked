@@ -10,8 +10,7 @@ public class PlayerScript : UnitScript
     public GameObject gameScene;
     public Animator animator;
 
-    public float speed = 5.0f;
-
+    public float speedMultiplier;
     private bool isGrounded;
     private int[] ammo;
     private Vector2 moveAxis;
@@ -86,16 +85,15 @@ public class PlayerScript : UnitScript
 
     void move()
     {
-
-        Vector3 moveDirection = new Vector3(moveAxis.x * Time.deltaTime * speed,
+        Vector3 moveDirection = new Vector3(moveAxis.x * Time.deltaTime * speedMultiplier,
                                             playerRb.velocity.y, 
-                                            moveAxis.y * Time.deltaTime * speed);
+                                            moveAxis.y * Time.deltaTime * speedMultiplier);
 
         if(!isGrounded && moveDirection.y > 0) 
         {
             moveDirection.y = 0;
         }
-
+  
         playerRb.velocity = moveDirection;
         animator.SetFloat("isRunning", moveAxis.magnitude);
 

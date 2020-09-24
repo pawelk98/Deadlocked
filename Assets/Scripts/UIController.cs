@@ -23,12 +23,6 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public float Timer
-    {
-        get { return endTime - Time.time; }
-        set { endTime = Time.time + value; }
-    }
-
     public int Score
     {
         get { return score; }
@@ -97,24 +91,19 @@ public class UIController : MonoBehaviour
 
 
     int enemiesNumber;
-    float endTime;
+    float startTime;
     int score;
 
     void Start()
     {
+        startTime = Time.time;
         switchWeaponBtn.onClick.AddListener(switchWeapon);
     }
 
     void Update()
     {
-        if (endTime - Time.time >= 0)
-        {
-            timerText.text = ((int)(endTime - Time.time)).ToString();
-        }
-        else
-        {
-            timerText.text = "X";
-        }
+        int seconds = (int)(Time.time - startTime);
+        timerText.text = (seconds / 60).ToString() + ":" + (seconds % 60).ToString();
     }
 
     void switchWeapon()

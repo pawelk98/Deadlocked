@@ -3304,6 +3304,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shooting Joystick
       objectReference: {fileID: 0}
+    - target: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
+        type: 3}
+      propertyPath: deadZone
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2929252285020698103, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
       propertyPath: m_Sprite
@@ -4086,6 +4091,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1057585589}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &513411411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 513411412}
+  m_Layer: 9
+  m_Name: BulletOffset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &513411412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513411411}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.9, y: -1.65, z: 5.87}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1754994493}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &524726195
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6805,6 +6840,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Movement Joystick
       objectReference: {fileID: 0}
+    - target: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
+        type: 3}
+      propertyPath: deadZone
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2929252285020698103, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
       propertyPath: m_Sprite
@@ -7722,15 +7762,14 @@ MonoBehaviour:
     type: 3}
   health: 9999
   weapon: 1
-  bulletOffset: 3
-  bulletOffsetY: 4
+  bulletOffset: {fileID: 513411412}
   movementJoystick: {fileID: 542225034}
   shootingJoystick: {fileID: 1380892754}
   playerRb: {fileID: 989580511}
   deathScene: {fileID: 1325921047}
   gameScene: {fileID: 125443277}
   animator: {fileID: 1745746147}
-  speed: 700
+  speedMultiplier: 700
 --- !u!54 &989580511
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7870,7 +7909,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009748006}
   m_Layer: 0
-  m_Name: EnemySpawns
+  m_Name: EnemySpawners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8015,9 +8054,7 @@ MonoBehaviour:
   - {fileID: 1217670938}
   - {fileID: 970824877}
   enemies:
-  - {fileID: 3700614611180856539, guid: 49175d66abce8bd41a987f49c5601fa8, type: 3}
-  - {fileID: 5383740136336859415, guid: 8ca8fe3021de25142bc8818a203555f9, type: 3}
-  - {fileID: 1989137323679384450, guid: e330440569ce868418e7852609768e49, type: 3}
+  - {fileID: 3421408929265778880, guid: 49175d66abce8bd41a987f49c5601fa8, type: 3}
 --- !u!114 &1016005170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13747,7 +13784,8 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 513411412}
   m_Father: {fileID: 1754994495}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13759,7 +13797,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755089759}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: -10}
+  m_LocalPosition: {x: 46, y: 0, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1754994435}
@@ -14295,9 +14333,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1.56
-  m_Height: 5
+  m_Height: 7.23998
   m_Direction: 1
-  m_Center: {x: 0, y: 2.51, z: 0}
+  m_Center: {x: 0, y: 3.6299903, z: 0}
 --- !u!1001 &1760099268
 PrefabInstance:
   m_ObjectHideFlags: 0

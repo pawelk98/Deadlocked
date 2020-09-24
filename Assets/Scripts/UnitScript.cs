@@ -8,8 +8,7 @@ public class UnitScript : MonoBehaviour
     
     public float health = 100;
     public int weapon = 1;
-    public float bulletOffset = 1.0f;
-    public float bulletOffsetY = 1.0f;
+    public Transform bulletOffset;
 
     protected float lastShot;
     protected float currentHealth;
@@ -86,8 +85,7 @@ public class UnitScript : MonoBehaviour
         bulletSc.damage = weaponsScript.getDamage(weapon);
         bulletSc.lifeLength = weaponsScript.getLifeLength(weapon);
 
-        bullet.transform.position = transform.position + direction * bulletOffset + new Vector3(0, bulletOffsetY, 0);
-
+        bullet.transform.position = bulletOffset.position;
         float angle = Vector3.SignedAngle(Vector3.forward, direction, Vector3.up);
         
         bullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
