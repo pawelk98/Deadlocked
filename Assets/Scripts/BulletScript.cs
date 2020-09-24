@@ -2,11 +2,10 @@
 
 public class BulletScript : MonoBehaviour
 {
-    public float damage = 10;
-    public float lifeLength = 3.0f;
-    public string shooterTag;
-
-    private float createdTime;
+    float damage = 10;
+    float lifeLength = 3.0f;
+    string shooterTag;
+    float createdTime;
 
     void Start()
     {
@@ -36,5 +35,12 @@ public class BulletScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void setValues(float damage, float lifeLength, string shooterTag)
+    {
+        this.damage = damage;
+        this.lifeLength = lifeLength;
+        this.shooterTag = shooterTag;
     }
 }

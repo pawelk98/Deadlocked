@@ -162,8 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uIController: {fileID: 0}
-  bulletPrefab: {fileID: 916442753211138663, guid: 83018feaa23be16438362a2676974a39,
-    type: 3}
   health: 6
   weapon: 0
   bulletOffset: {fileID: 3421408928451162999}

@@ -4,7 +4,6 @@ public class UnitScript : MonoBehaviour
 {
     public UIController uIController;
     protected Weapons weaponsScript;
-    public GameObject bulletPrefab;
     
     public float health = 100;
     public int weapon = 1;
@@ -77,13 +76,11 @@ public class UnitScript : MonoBehaviour
 
     private void singleShot(Vector3 direction)
     {
-        GameObject bullet = Instantiate(bulletPrefab);
+        GameObject bullet = Instantiate(weaponsScript.bulletPrefabs[weapon]);
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         BulletScript bulletSc = bullet.GetComponent<BulletScript>();
 
-        bulletSc.shooterTag = gameObject.tag;
-        bulletSc.damage = weaponsScript.getDamage(weapon);
-        bulletSc.lifeLength = weaponsScript.getLifeLength(weapon);
+        bulletSc.setValues(weaponsScript.getDamage(weapon), weaponsScript.getLifeLength(weapon), gameObject.tag);
 
         bullet.transform.position = bulletOffset.position;
         float angle = Vector3.SignedAngle(Vector3.forward, direction, Vector3.up);

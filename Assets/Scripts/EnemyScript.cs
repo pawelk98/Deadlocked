@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyScript : UnitScript
 {
+    public Animator animator;
     public NavMeshAgent agent;
     public GameObject ammo;
     public int scoreValue = 10;
@@ -56,26 +57,40 @@ public class EnemyScript : UnitScript
         {
             agent.SetDestination(player.transform.position);
 
-            if (agent.hasPath && agent.remainingDistance <= stoppingDistance)
-            {                
-                Vector3 rayDirection = player.transform.position - transform.position;
-                rayDirection.y = 0;
+            if(agent.hasPath)
+            {
+                if (agent.remainingDistance <= stoppingDistance)
+                {              
+                    animator.SetBool("isWalking", false);  
+                    Vector3 rayDirection = player.transform.position - transform.position;
+                    rayDirection.y = 0;
 
-                if (Physics.Raycast(transform.position, rayDirection, out hit, Mathf.Infinity, layerMask)
-                    && hit.collider.tag.Equals("Player"))
-                {
-                    agent.stoppingDistance = stoppingDistance;
-                    agent.velocity = Vector3.zero;
-
-                    if (Time.time - lastShot > weaponsScript.getAttackRate(weapon))
+                    if (Physics.Raycast(transform.position, rayDirection, out hit, Mathf.Infinity, layerMask)
+                        && hit.collider.tag.Equals("Player"))
                     {
-                        shoot((player.transform.position - transform.position).normalized);
+                        agent.stoppingDistance = stoppingDistance;
+                        agent.velocity = Vector3.zero;
+
+                        if (Time.time - lastShot > weaponsScript.getAttackRate(weapon))
+                        {
+                            animator.SetBool("isAttacking", true);
+                            shoot((player.transform.position - transform.position).normalized);
+                        }
+                    }
+                    else
+                    {
+                        agent.stoppingDistance = minStoppingDistance;
                     }
                 }
                 else
                 {
-                    agent.stoppingDistance = minStoppingDistance;
+                animator.SetBool("isWalking", true);
+                animator.SetBool("isAttacking", false);
                 }
+            }
+            else
+            {
+                animator.SetBool("isWalking", false);
             }
         }
         else
