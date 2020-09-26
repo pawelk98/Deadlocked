@@ -57,7 +57,7 @@ public class UnitScript : MonoBehaviour
 
         switch (weapon)
         {
-            case 3:
+            case 4:
                 singleShot(Quaternion.AngleAxis(Random.Range(-recoil, recoil), Vector3.up) * direction);
                 singleShot(Quaternion.AngleAxis(-15f + Random.Range(-recoil, recoil), Vector3.up) * direction);
                 singleShot(Quaternion.AngleAxis(-7.5f + Random.Range(-recoil, recoil), Vector3.up) * direction);

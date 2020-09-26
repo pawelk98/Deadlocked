@@ -73,11 +73,11 @@ public class UIController : MonoBehaviour
                     break;
 
                 case 3:
-                    name = "Shotgun";
+                    name = "Rifle";
                     break;
 
                 case 4:
-                    name = "Rifle";
+                    name = "Shotgun";
                     break;
 
                 default:

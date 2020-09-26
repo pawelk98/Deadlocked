@@ -2,6 +2,12 @@
 
 public class BulletScript : MonoBehaviour
 {
+    public ParticleSystem particle;
+    public MeshRenderer meshRenderer;
+    public Light lights;
+    public Rigidbody rb;
+    public bool isEmitting = false;
+
     float damage = 10;
     float lifeLength = 3.0f;
     string shooterTag;
@@ -23,17 +29,26 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Equals("Enemy") || other.gameObject.tag.Equals("Player"))
+        if(isEmitting == true && meshRenderer.enabled)
         {
-            if (!other.gameObject.tag.Equals(shooterTag))
+            if (other.gameObject.tag.Equals("Enemy") || other.gameObject.tag.Equals("Player"))
             {
-                Destroy(gameObject);
-                other.GetComponent<UnitScript>().dealDamage(damage);
+                if (!other.gameObject.tag.Equals(shooterTag))
+                {
+                    Destroy(gameObject);
+                    other.GetComponent<UnitScript>().dealDamage(damage);
+                }
             }
-        }
-        else if(!other.gameObject.tag.Equals("Bullet") && !other.gameObject.tag.Equals("Ammo"))
-        {
-            Destroy(gameObject);
+            else if(!other.gameObject.tag.Equals("Bullet") && !other.gameObject.tag.Equals("Ammo"))
+            {
+                if(isEmitting)
+                {
+                    rb.velocity = Vector3.zero;
+                    meshRenderer.enabled = false;
+                    lights.enabled = false;
+                    particle.Play();
+                }
+            }
         }
     }
 

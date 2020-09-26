@@ -727,7 +727,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7768102847030762182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.973633, y: 0, z: -13.159074}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 7768102847031248612}
@@ -745,7 +745,7 @@ Animator:
   m_GameObject: {fileID: 7768102847030762182}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
-  m_Controller: {fileID: 9100000, guid: 94e426e48aeb7e44ca2f39c272ad5931, type: 2}
+  m_Controller: {fileID: 9100000, guid: 85be58145b6121546a11d4e0ef226e38, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -764,10 +764,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 1.1401806
+  m_Radius: 0.37777847
+  m_Height: 1.1564684
   m_Direction: 1
-  m_Center: {x: 0, y: 0.58244324, z: 0}
+  m_Center: {x: 0, y: 0.59058714, z: 0}
 --- !u!195 &7768102846368679311
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -778,7 +778,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.35
-  m_Speed: 8
+  m_Speed: 15
   m_Acceleration: 30
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -811,9 +811,11 @@ MonoBehaviour:
   ammo: {fileID: 4634126364504686163, guid: bf36c32a17cc7a742a0b17ac0d21de40, type: 3}
   scoreValue: 1
   minStoppingDistance: 5
+  rotationSpeed: 10
   dropChance: 0
   dropAmount: 0
   dropWeapon: -1
+  dropOffsetY: 0.1666679
 --- !u!1 &7768102847030762184
 GameObject:
   m_ObjectHideFlags: 0

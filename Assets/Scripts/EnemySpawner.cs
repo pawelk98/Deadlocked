@@ -18,10 +18,23 @@ public class EnemySpawner : MonoBehaviour
         nextWave = 0;
         startTime = Time.time;
         
-        wavesData = new int[2][];
+        wavesData = new int[14][];
 
-        wavesData[0] = new int[] { 1, 5, 0 };
-        wavesData[1] = new int[] { 10, 0, 0 };
+        wavesData[0] = new int[] { 4, 0, 0, 0 };
+        wavesData[1] = new int[] { 2, 2, 0, 0 };
+        wavesData[2] = new int[] { 5, 2, 0, 0 };
+        wavesData[3] = new int[] { 5, 5, 0, 0 };
+        wavesData[4] = new int[] { 10, 5, 0, 0 };
+        wavesData[5] = new int[] { 15, 7, 0, 0 };
+        wavesData[6] = new int[] { 0, 2, 2, 0 };
+        wavesData[7] = new int[] { 5, 3, 5, 0 };
+        wavesData[8] = new int[] { 0, 15, 5, 0 };
+        wavesData[9] = new int[] { 0, 0, 15, 0 };
+        wavesData[10] = new int[] { 0, 0, 0, 1 };
+        wavesData[11] = new int[] { 30, 0, 0, 0 };
+        wavesData[12] = new int[] { 10, 0, 0, 2 };
+        wavesData[13] = new int[] { 5, 5, 5, 1 };
+
 
     }
 

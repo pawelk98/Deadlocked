@@ -8,9 +8,11 @@ public class EnemyScript : UnitScript
     public GameObject ammo;
     public int scoreValue = 10;
     public float minStoppingDistance = 2.2f;
+    public float rotationSpeed = 10;
     public int dropChance = 50;
     public int dropAmount = 10;
     public int dropWeapon = 2;
+    public float dropOffsetY;
 
     private GameObject enemies;
     private GameObject player;
@@ -39,10 +41,11 @@ public class EnemyScript : UnitScript
     {
         if(dropWeapon != -1) {
             if(Random.Range(0,100) < dropChance) {
-                GameObject spawnedAmmo = Instantiate(ammo, transform.position, Quaternion.identity);
+                Vector3 dropPos = new Vector3(transform.position.x, transform.position.y - dropOffsetY + 3, transform.position.z);
+                GameObject spawnedAmmo = Instantiate(ammo, dropPos, Quaternion.identity);
                 spawnedAmmo.transform.parent = GameObject.Find("Drop").transform;
-                spawnedAmmo.transform.GetChild(0).gameObject.GetComponent<AmmoScript>().weapon = dropWeapon;
-                spawnedAmmo.transform.GetChild(0).gameObject.GetComponent<AmmoScript>().amount = dropAmount;
+                spawnedAmmo.GetComponent<AmmoScript>().weapon = dropWeapon;
+                spawnedAmmo.GetComponent<AmmoScript>().amount = dropAmount;
             }
         }
 
@@ -73,6 +76,10 @@ public class EnemyScript : UnitScript
                     {
                         agent.stoppingDistance = stoppingDistance;
                         agent.velocity = Vector3.zero;
+
+                        Vector3 direction = (player.transform.position - transform.position).normalized;
+                        Quaternion lookRotation = Quaternion.LookRotation(direction);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
 
                         if (Time.time - lastShot > weaponsScript.getAttackRate(weapon))
                         {
