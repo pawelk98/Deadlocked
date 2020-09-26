@@ -37,12 +37,13 @@ public class EnemyScript : UnitScript
 
     protected override void kill()
     {
-        if(weapon > 0) {
+        if(dropWeapon != -1) {
             if(Random.Range(0,100) < dropChance) {
-                GameObject spawnedAmmo = Instantiate(ammo, transform.position, Quaternion.AngleAxis(90, Vector3.right));
+                Debug.Log("drop");
+                GameObject spawnedAmmo = Instantiate(ammo, transform.position, Quaternion.identity);
                 spawnedAmmo.transform.parent = GameObject.Find("Drop").transform;
-                spawnedAmmo.GetComponent<AmmoScript>().weapon = dropWeapon;
-                spawnedAmmo.GetComponent<AmmoScript>().amount = dropAmount;
+                spawnedAmmo.transform.GetChild(0).gameObject.GetComponent<AmmoScript>().weapon = dropWeapon;
+                spawnedAmmo.transform.GetChild(0).gameObject.GetComponent<AmmoScript>().amount = dropAmount;
             }
         }
 
@@ -60,8 +61,11 @@ public class EnemyScript : UnitScript
             if(agent.hasPath)
             {
                 if (agent.remainingDistance <= stoppingDistance)
-                {              
-                    animator.SetBool("isWalking", false);  
+                {   
+                    if(animator)
+                    {
+                        animator.SetBool("isWalking", false);  
+                    }           
                     Vector3 rayDirection = player.transform.position - transform.position;
                     rayDirection.y = 0;
 
@@ -73,7 +77,10 @@ public class EnemyScript : UnitScript
 
                         if (Time.time - lastShot > weaponsScript.getAttackRate(weapon))
                         {
-                            animator.SetBool("isAttacking", true);
+                            if(animator)
+                            {
+                                animator.SetBool("isAttacking", true);
+                            }
                             shoot((player.transform.position - transform.position).normalized);
                         }
                     }
@@ -84,13 +91,19 @@ public class EnemyScript : UnitScript
                 }
                 else
                 {
-                animator.SetBool("isWalking", true);
-                animator.SetBool("isAttacking", false);
+                    if(animator)
+                    {
+                        animator.SetBool("isWalking", true);
+                        animator.SetBool("isAttacking", false);
+                    }
                 }
             }
             else
             {
-                animator.SetBool("isWalking", false);
+                if(animator)
+                {
+                    animator.SetBool("isWalking", false);
+                }
             }
         }
         else

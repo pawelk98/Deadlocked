@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
         
         wavesData = new int[2][];
 
-        wavesData[0] = new int[] { 5, 0, 0 };
+        wavesData[0] = new int[] { 1, 5, 0 };
         wavesData[1] = new int[] { 10, 0, 0 };
 
     }
@@ -35,11 +35,12 @@ public class EnemySpawner : MonoBehaviour
 
     void spawnWave(int id)
     {
+        int spawnedId = 0;
         for(int i = 0; i < wavesData[id].Length; i++)
         {
             for(int j = 0; j < wavesData[id][i]; j++)
             {
-                GameObject enemy = Instantiate(enemies[i], enemySpawns[j % enemySpawns.Length].position, Quaternion.identity);
+                GameObject enemy = Instantiate(enemies[i], enemySpawns[spawnedId++ % enemySpawns.Length].position, Quaternion.identity);
                 uIController.EnemiesNumber += 1;
             }
         }

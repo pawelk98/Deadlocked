@@ -4,7 +4,6 @@ public class UnitScript : MonoBehaviour
 {
     public UIController uIController;
     protected Weapons weaponsScript;
-    
     public float health = 100;
     public int weapon = 1;
     public Transform bulletOffset;

@@ -808,12 +808,12 @@ MonoBehaviour:
   bulletOffset: {fileID: 7768102845708171651}
   animator: {fileID: 7768102847021410566}
   agent: {fileID: 7768102846368679311}
-  ammo: {fileID: 8866274222705634820, guid: 915898fc7a0ef734eaab0517a7d784ca, type: 3}
+  ammo: {fileID: 4634126364504686163, guid: bf36c32a17cc7a742a0b17ac0d21de40, type: 3}
   scoreValue: 1
   minStoppingDistance: 5
-  dropChance: 50
-  dropAmount: 50
-  dropWeapon: 2
+  dropChance: 0
+  dropAmount: 0
+  dropWeapon: -1
 --- !u!1 &7768102847030762184
 GameObject:
   m_ObjectHideFlags: 0
