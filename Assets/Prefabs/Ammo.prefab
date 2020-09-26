@@ -111,6 +111,7 @@ MonoBehaviour:
   ammo: {fileID: 4634126364504686172}
   weapon: 1
   amount: 10
+  rotationSpeed: 50
 --- !u!1 &4634126364504686163
 GameObject:
   m_ObjectHideFlags: 0

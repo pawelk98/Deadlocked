@@ -173,8 +173,8 @@ MonoBehaviour:
   ammo: {fileID: 4634126364504686163, guid: bf36c32a17cc7a742a0b17ac0d21de40, type: 3}
   scoreValue: 10
   minStoppingDistance: 3
-  dropChance: 50
-  dropAmount: 50
+  dropChance: 60
+  dropAmount: 10
   dropWeapon: 3
 --- !u!1 &4395801012809746253
 GameObject:

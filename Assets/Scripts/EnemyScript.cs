@@ -39,7 +39,6 @@ public class EnemyScript : UnitScript
     {
         if(dropWeapon != -1) {
             if(Random.Range(0,100) < dropChance) {
-                Debug.Log("drop");
                 GameObject spawnedAmmo = Instantiate(ammo, transform.position, Quaternion.identity);
                 spawnedAmmo.transform.parent = GameObject.Find("Drop").transform;
                 spawnedAmmo.transform.GetChild(0).gameObject.GetComponent<AmmoScript>().weapon = dropWeapon;
