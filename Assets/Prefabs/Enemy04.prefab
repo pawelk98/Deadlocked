@@ -610,7 +610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uIController: {fileID: 0}
   health: 100
-  weapon: 4
+  weapon: 3
   bulletOffset: {fileID: 6536275642811803644}
   animator: {fileID: 8312058732244934308}
   agent: {fileID: 8312058732627000590}

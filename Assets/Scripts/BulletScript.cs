@@ -12,11 +12,13 @@ public class BulletScript : MonoBehaviour
     float lifeLength = 3.0f;
     string shooterTag;
     float createdTime;
+    bool hasParticles;
 
     void Start()
     {
         transform.parent = GameObject.Find("Bullets").transform;
         createdTime = Time.time;
+        hasParticles = isEmitting;
     }
 
     void Update()
@@ -29,7 +31,7 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(isEmitting == true && meshRenderer.enabled)
+        if(!hasParticles || isEmitting && meshRenderer.enabled)
         {
             if (other.gameObject.tag.Equals("Enemy") || other.gameObject.tag.Equals("Player"))
             {
