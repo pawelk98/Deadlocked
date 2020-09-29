@@ -4,7 +4,6 @@ public class BulletScript : MonoBehaviour
 {
     public ParticleSystem particle;
     public MeshRenderer meshRenderer;
-    public Light lights;
     public Rigidbody rb;
     public bool isEmitting = false;
 
@@ -47,7 +46,6 @@ public class BulletScript : MonoBehaviour
                 {
                     rb.velocity = Vector3.zero;
                     meshRenderer.enabled = false;
-                    lights.enabled = false;
                     particle.Play();
                 }
             }

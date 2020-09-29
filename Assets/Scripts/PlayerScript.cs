@@ -23,9 +23,6 @@ public class PlayerScript : UnitScript
 
         ammo = new int[weaponsScript.NumberOfWeapons];
         ammo[1] = -1;
-        ammo[2] = 50;
-        ammo[3] = 50;
-        ammo[4] = 50;
 
         uIController.Ammo = ammo[weapon];
         uIController.Weapon = weapon;
@@ -150,5 +147,12 @@ public class PlayerScript : UnitScript
     public void pickUpAmmo(int weaponId, int amount)
     {
         ammo[weaponId] += amount;
+    }
+
+    public void regenerateHealth(int points)
+    {
+        this.currentHealth += points;
+        if(currentHealth > 100)
+            currentHealth = 100;
     }
 }

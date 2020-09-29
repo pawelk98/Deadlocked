@@ -12,6 +12,7 @@ public class EnemyScript : UnitScript
     public int dropChance = 50;
     public int dropAmount = 10;
     public int dropWeapon = 2;
+    public int healthRegen = 1;
     public float dropOffsetY;
 
     private GameObject enemies;
@@ -52,6 +53,11 @@ public class EnemyScript : UnitScript
         base.kill();
         uIController.EnemiesNumber -= 1;
         uIController.Score += scoreValue;
+        
+        if(player != null)
+        {
+            player.GetComponent<PlayerScript>().regenerateHealth(healthRegen);
+        }
     }
 
     void agentControl()

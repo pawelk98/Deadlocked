@@ -7,6 +7,7 @@ public class UnitScript : MonoBehaviour
     public float health = 100;
     public int weapon = 1;
     public Transform bulletOffset;
+    public AudioSource gun;
 
     protected float lastShot;
     protected float currentHealth;
@@ -53,6 +54,11 @@ public class UnitScript : MonoBehaviour
 
     protected virtual void shoot(Vector3 direction)
     {
+        if(gun != null)
+        {
+            gun.Play();
+        }
+
         float recoil = weaponsScript.getRecoil(weapon);
 
         switch (weapon)
